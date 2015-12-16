@@ -1,0 +1,27 @@
+{
+  "name": "circle-deformations",
+  "version": "0.0.1",
+  "description": "Circle deformations in the disk",
+  "main": "main.js",
+  "dependencies": {
+    "array-contains": "0.0.1",
+    "array-equal": "^1.0.0",
+    "async": "^1.5.0",
+    "d3": "^3.5.10",
+    "watchify": "^3.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "watch": "watchify main.js -v -o output/bundle.js",
+    "reload": "livereload output/",
+    "serve": "http-server output/",
+    "build": "browserify main.js -o output/bundle.js; http-server output/"
+  },
+  "keywords": [
+    "deformations",
+    "circles",
+    "loops"
+  ],
+  "author": "nicschumann",
+  "license": "ISC"
+}
