@@ -2,7 +2,7 @@
 
 var d3 = require('d3');
 
-var RenderInstance = require('./RenderInstance');
+var RenderLineInstance = require('./RenderArcInstance');
 
 /**
  * The RenderGrid renderer facilitates rendering a series of 
@@ -65,7 +65,7 @@ module.exports = function CartesianRenderGrid( structures ) {
 				canvasHeight * ( 1 / height * (index % height) + 1 / (2*height) )
 			];
 
-			(new RenderInstance( structures[ index ] )).render( svg, center, radius, index );
+			(new RenderLineInstance( structures[ index ] )).render( svg, center, radius, index );
 
 
 		});

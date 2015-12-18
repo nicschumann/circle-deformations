@@ -3,14 +3,14 @@
 var makeAffine = require('./Affine');
 
 /**
- * The RenderGrid renderer facilitates rendering a series of 
- * instances of a given line-generating algorithm. 
+ * The RenderLineInstance renderer facilitates of a single
+ * structure instance, representing edges as straight lines in the disk.
  * 
  * @param  {Structure} 	structure 		a line-generating structure capable of providing a stream of edges to render.
  * @return {d3.selection}           		RenderGrid object with a render : Int x Int -> SVG method.
  */
-module.exports = function RenderInstance( structure ) {
-	if (! (this instanceof RenderInstance)) { return new RenderInstance( structure ); }
+module.exports = function RenderLineInstance( structure ) {
+	if (! (this instanceof RenderLineInstance)) { return new RenderLineInstance( structure ); }
 	var self = this;
 
 	/**
