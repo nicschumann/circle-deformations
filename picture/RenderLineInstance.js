@@ -2,6 +2,8 @@
 
 var makeAffine = require('./Affine');
 
+var renderWithPathMethod = require('./RenderWithPathMethod');
+
 /**
  * The RenderLineInstance renderer facilitates of a single
  * structure instance, representing edges as straight lines in the disk.
@@ -27,39 +29,14 @@ module.exports = function RenderLineInstance( structure ) {
 
 		var affine = makeAffine( structure.radialDivisions(), structure.concentricDivisions(), center, radius );
 
-		var coordinatingClass = function () { return 'path-' + Math.floor( center[0] ) + '-' + Math.floor( center[1] ) + '-' + iteration; };
-
-		var paths = svg.selectAll( '.' + coordinatingClass() ).data( structure.loop() );
-
-		var neighbors = svg.selectAll( '.' + coordinatingClass() + '-neighbor' ).data( structure.loop().map( function(x) { return {edge: x, neighbors: x.neighbors() }; }) );
-
-		neighbors.enter()
-			.append('path')
-			.classed('neighbor', true)
-			.classed('free', function( n ) {
-				return n.edge.isFree( structure.loop() );
-			})
-			.classed('path', true )
-			.classed( coordinatingClass() + "-neighbor", true )
-			.attr('d', function( n ) {
-				return n.neighbors.map( function( edge ) {
-					return "M " + affine( edge.start() )[0] + " " + affine( edge.start() )[1] + " L " + affine( edge.end() )[0] + " " + affine( edge.end())[1]; 
-				}).join(" ");
-			});
-
-		paths.enter()
-			.append('path')
-			.classed('path', true )
-			.classed( coordinatingClass(), true )
-			.classed( "free-edge", function( edge )  { return edge.isFree( structure.loop() ); } )
-			.attr('d', function( edge ) {
+		return renderWithPathMethod( structure, function( edge ) {
+			
 				return [
 					"M", affine( edge.start())[0], affine( edge.start())[1],
 					"L", affine( edge.end())[0], affine( edge.end())[1]
 				].join(" ");
-			});
 
-		
+		})( svg, center, radius, iteration );		
 
 	};
 
