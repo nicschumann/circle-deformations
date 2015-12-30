@@ -1,6 +1,5 @@
 "use strict";
 
-
 /**
  * The RenderWithPathMethod routine encapsulates the D3 dom manipulation,
  * Given a function which returns a wellformed SVG path string given an edge,
@@ -12,7 +11,7 @@
  */
 module.exports = function RenderWithPathMethod( structure, path ) {
 
-	return function ( svg, center, radius, iteration ) {
+	 var render = function ( svg, center, radius, iteration ) {
 
 		var coordinatingClass = function () { return 'path-' + Math.floor( center[0] ) + '-' + Math.floor( center[1] ) + '-' + iteration; };
 
@@ -39,5 +38,7 @@ module.exports = function RenderWithPathMethod( structure, path ) {
 			.classed( "free-edge", function( edge )  { return edge.isFree( structure.loop() ); } )
 			.attr('d', path );
 	};
+
+	return render;
 
 };
